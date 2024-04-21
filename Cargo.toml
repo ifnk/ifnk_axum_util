@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ['ifnk']
 description = "自己用的 axum util通用库"
+license = "MIT"
 [lib]
 name = "ifnk_axum_util"
 path = "src/lib.rs"

@@ -20,7 +20,6 @@ pub fn setup_logs() -> anyhow::Result<WorkerGuard> {
         .with_writer(std::io::stdout)
         .with_thread_names(true)
         .with_line_number(true)
-        .pretty()
         .with_filter(EnvFilter::from_default_env().add_directive(Level::INFO.into()));
 
     // Combine layers into a single subscriber and set global default

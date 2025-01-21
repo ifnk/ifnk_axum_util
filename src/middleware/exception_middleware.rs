@@ -3,7 +3,7 @@ use http::Response;
 use axum::body::Body;
 use axum::Json;
 use axum::response::IntoResponse;
-use crate::util_entity::response::{CusResponse, failed};
+use crate::{response::failed_with_details, util_entity::response::CusResponse};
 
 pub fn handle_exception(err: Box<dyn Any + Send + 'static>) -> Response<Body> {
     let msg = if let Some(s) = err.downcast_ref::<String>() {
@@ -24,7 +24,7 @@ pub fn handle_exception(err: Box<dyn Any + Send + 'static>) -> Response<Body> {
         )
     };
 
-    let cus_response: CusResponse<()> = failed(msg, Some(details));
+    let cus_response: CusResponse<()> = failed_with_details(msg, Some(details));
     let response = Json(cus_response);
 
     response.into_response()

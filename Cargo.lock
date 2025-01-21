@@ -592,7 +592,7 @@ dependencies = [
 
 [[package]]
 name = "ifnk_axum_util"
-version = "0.1.7"
+version = "0.1.9"
 dependencies = [
  "anyhow",
  "axum",

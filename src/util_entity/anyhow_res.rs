@@ -3,6 +3,7 @@ use axum::response::{IntoResponse, Response};
 use axum::Json;
 use serde::Serialize;
 use serde_json::{json, Value};
+use tracing::error;
 
 use crate::util_entity::response::{failed, json_failed, success};
 
@@ -57,6 +58,7 @@ impl From<String> for AnyhowError {
 
 impl From<anyhow::Error> for AnyhowError {
     fn from(err: anyhow::Error) -> Self {
+        error!("{:#?}", err);
         let backtrace = backtrace::Backtrace::new();
         let filtered_trace: Vec<String> = backtrace.frames()
             .iter()

@@ -58,37 +58,39 @@ impl From<String> for AnyhowError {
 
 impl From<anyhow::Error> for AnyhowError {
     fn from(err: anyhow::Error) -> Self {
-        error!("{:#?}", err);
-        let backtrace = backtrace::Backtrace::new();
-        let filtered_trace: Vec<String> = backtrace.frames()
-            .iter()
-            .filter(|frame| {
-                if let Some(symbols) = frame.symbols().first() {
-                    if let Some(filename) = symbols.filename() {
-                        return filename.to_string_lossy().contains("src/");
-                    }
-                }
-                false
-            })
-            .map(|frame| {
-                if let Some(symbols) = frame.symbols().first() {
-                    format!(
-                        "{}:{} - {}",
-                        symbols.filename().map(|f| f.to_string_lossy()).unwrap_or_default(),
-                        symbols.lineno().unwrap_or(0),
-                        symbols.name().map(|n| n.to_string()).unwrap_or_default()
-                    )
-                } else {
-                    String::new()
-                }
-            })
-            .collect();
+        // error!("{:#?}", err);
+        // todo detail 堆栈太长，后面想想怎么优化
+        // let backtrace = backtrace::Backtrace::new();
+        // let filtered_trace: Vec<String> = backtrace.frames()
+        //     .iter()
+        //     .filter(|frame| {
+        //         if let Some(symbols) = frame.symbols().first() {
+        //             if let Some(filename) = symbols.filename() {
+        //                 return filename.to_string_lossy().contains("src/");
+        //             }
+        //         }
+        //         false
+        //     })
+        //     .map(|frame| {
+        //         if let Some(symbols) = frame.symbols().first() {
+        //             format!(
+        //                 "{}:{} - {}",
+        //                 symbols.filename().map(|f| f.to_string_lossy()).unwrap_or_default(),
+        //                 symbols.lineno().unwrap_or(0),
+        //                 symbols.name().map(|n| n.to_string()).unwrap_or_default()
+        //             )
+        //         } else {
+        //             String::new()
+        //         }
+        //     })
+        //     .collect();
 
-        let detail = format!(
-            "\n 错误堆栈:\n{}",
-            filtered_trace.join("\n")
-        );
+        // let detail = format!(
+        //     "\n 错误堆栈:\n{}",
+        //     filtered_trace.join("\n")
+        // );
 
-        Self::new(err, Some(detail))
+        // Self::new(err, Some(detail))
+        Self::new(err, None)
     }
 }

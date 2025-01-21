@@ -1,6 +1,6 @@
 [package]
 name = "ifnk_axum_util"
-version = "0.1.7"
+version = "0.1.8"
 edition = "2021"
 authors = ['ifnk']
 description = "自己用的 axum util通用库"
